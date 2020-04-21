@@ -66,7 +66,7 @@
       - String-Grammar // 语法
         - "abc" // 双引号
           - 任何非双引号与反斜杠
-          - " ' \ b f n r t v ,这几个字符以外的字符跟在\后面就是表示自身。这几个字符跟在\后面是有特定意义的。![转义相关符号](file:///Users/apple/kael/frontend/winter-course/week02/encoding.png)
+          - " ' \ b f n r t v ,这几个字符以外的字符跟在\后面就是表示自身。这几个字符跟在\后面是有特定意义的。![转义相关符号](https://raw.githubusercontent.com/kaeryehaowan/kaeryehaowan.github.io/master/images/encoding-space.png)
         - 'abc' // 单引号
         - `abc` // 模板
           - `和${ 是一部分，}和${ 是一部分， }和` 是一部分
