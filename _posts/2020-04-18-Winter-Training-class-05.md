@@ -1,3 +1,4 @@
+## JavaScript | 词法，类型
 ### Unicode
 
 - unicode 是字符集，每一字符都会有码点
