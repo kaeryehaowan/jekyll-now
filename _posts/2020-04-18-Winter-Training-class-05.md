@@ -9,23 +9,23 @@
 ### InputElement
 
 - WhiteSpace 空白符
-  - <TAB> // tab 键产生的空白，制表符 '\t'
-  - <VT> // 纵向制表符 '\v'
-  - <FF> // 换页符 formfeed
-  - <SP> // 普通空格
-  - <NBSP> // 不换行空格 no-break space
-  - <ZWNBSP> // zero width no-break space 零宽不换行空格
+  - \<TAB\> // tab 键产生的空白，制表符 '\t'
+  - \<VT\> // 纵向制表符 '\v'
+  - \<FF\> // 换页符 formfeed
+  - \<SP\> // 普通空格
+  - \<NBSP\> // 不换行空格 no-break space
+  - \<ZWNBSP\> // zero width no-break space 零宽不换行空格
     - BOM // 通过在文件开头加入一个 ZWNBSP,然后通过看收到的是 FE FF 或 FF FE 来判断是什么格式
-  - <USP> // Unicode 里的空白
+  - \<USP\> // Unicode 里的空白
 - LineTerminator 换行符
-  - <LF> // line feed 换行 '\n'
-  - <CR> // carriage return 回车 '\r'
-  - <LS> // line separator 分行符，超出 Ascii 编码
-  - <PS> // paragraph separator 分段符，超出 Ascii 编码
+  - \<LF\> // line feed 换行 '\n'
+  - \<CR\> // carriage return 回车 '\r'
+  - \<LS\> // line separator 分行符，超出 Ascii 编码
+  - \<PS\> // paragraph separator 分段符，超出 Ascii 编码
 - Comment 注释
   - 注释里不能用\u 转义*，/*\u002a/这样是识别不出\u002a 为\*的。注释就是分为单行和多行，完。
 - Token 有效字符
-  - IdentifierName // 标识符与关键字，必须以 UnicodeIDStart 字符（英文大小写、中文等）、_、\$开头。其它位置以 UnicodeIDContinue、_、\$、<ZWNJ>零宽非连接符、<ZWJ>零宽连接符。最佳实践是都只使用 Ascii 范围内。
+  - IdentifierName // 标识符与关键字，必须以 UnicodeIDStart 字符（英文大小写、中文等）、_、\$开头。其它位置以 UnicodeIDContinue、_、\$、\<ZWNJ\>零宽非连接符、\<ZWJ\>零宽连接符。最佳实践是都只使用 Ascii 范围内。
     - Keywords // 关键字 let var class 等
     - Identifier // 标识符
       - 变量名 不能跟关键字重名，有一个特殊的 get ,get 能当做变量名，然而在属性里却又能成为关键字
@@ -46,7 +46,7 @@
           - 十六进制 0x
       - Number-Practice 最佳实践
         - Safe Integer 安全整数 Number.MAX_SAFE_INTEGER
-        - Float Compare 浮点精度，浮点比对数 Number.EPSILON，Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
+        - Float Compare 浮点精度，浮点比对数 Number.EPSILON，Math.abs(0.1 + 0.2 - 0.3) \<= Number.EPSILON
     - String // 字符串
       - Character // 字符
       - Code Point // 码点
