@@ -1,81 +1,83 @@
 ### Unicode
-    * unicode是字符集，每一字符都会有码点
-    * [Unicode](home.unicode.org)
-    * [unicode文档](fileformat.info/info/unicode/)
-    * 自己的理解
-    `Unicode:我们写的代码都字符，然后计算机只认识0 1，然后呢，unicode就是作为桥梁把字符与0 1打通。 60年代，美国定义了Ascii码，为256个字符，其实只用了128个，从0-127，就包含了基本的英文字符。然后其它一些地区，字符比较多，就用这Ascii里剩下的扩展自己的字符，也就是从128开始到255之间。但是呢，不同地区呢，定义的127-255之间的字符又不一样，比如，中文、法文、阿拉伯等，128之前的都一样，128以后就不一样了。后来呢，就出现了unicode(万国码)，把所有字符都定义了一个唯一的码点，如果大家用这套标准呢，就不会有同样的码点出现不同的字符的情况，就不乱码了。然后就是，utf-8 utf-16 utf-32等，这些就是针对unicode标准的几套实现。`
+
+- unicode 是字符集，每一字符都会有码点
+- [Unicode](home.unicode.org)
+- [unicode 文档](fileformat.info/info/unicode/)
+- 自己的理解
+  `Unicode:我们写的代码都字符，然后计算机只认识0 1，然后呢，unicode就是作为桥梁把字符与0 1打通。 60年代，美国定义了Ascii码，为256个字符，其实只用了128个，从0-127，就包含了基本的英文字符。然后其它一些地区，字符比较多，就用这Ascii里剩下的扩展自己的字符，也就是从128开始到255之间。但是呢，不同地区呢，定义的127-255之间的字符又不一样，比如，中文、法文、阿拉伯等，128之前的都一样，128以后就不一样了。后来呢，就出现了unicode(万国码)，把所有字符都定义了一个唯一的码点，如果大家用这套标准呢，就不会有同样的码点出现不同的字符的情况，就不乱码了。然后就是，utf-8 utf-16 utf-32等，这些就是针对unicode标准的几套实现。`
+
 ### InputElement
-    * WhiteSpace 空白符
-        * <TAB> // tab键产生的空白，制表符 '\t'
-        * <VT> // 纵向制表符 '\v'
-        * <FF> // 换页符 formfeed
-        * <SP> // 普通空格
-        * <NBSP> // 不换行空格 no-break space
-        * <ZWNBSP> // zero width no-break space 零宽不换行空格 
-            * BOM // 通过在文件开头加入一个ZWNBSP,然后通过看收到的是 FE FF或FF FE来判断是什么格式
-        * <USP> // Unicode里的空白
-    * LineTerminator 换行符
-        * <LF> // line feed 换行 '\n'
-        * <CR> // carriage return 回车 '\r'
-        * <LS> // line separator 分行符，超出Ascii编码
-        * <PS> // paragraph separator 分段符，超出Ascii编码
-    * Comment 注释
-        * 注释里不能用\u转义*，/*\u002a/这样是识别不出\u002a为*的。注释就是分为单行和多行，完。
-    * Token 有效字符
-        * IdentifierName // 标识符与关键字，必须以UnicodeIDStart字符（英文大小写、中文等）、_、$开头。其它位置以UnicodeIDContinue、_、$、<ZWNJ>零宽非连接符、<ZWJ>零宽连接符。最佳实践是都只使用Ascii范围内。
-            * Keywords // 关键字 let var class等
-            * Identifier // 标识符
-                * 变量名 不能跟关键字重名，有一个特殊的 get ,get能当做变量名，然而在属性里却又能成为关键字
-                * 属性名 可以跟关键字重名，如a.this = 2
-            * Future reserved Keywords // 保留字符，将来会用的
-        * Punctuator // 符号  - + = （ ）等
-        * Literal // 直接量, true false null 1 2 3 等
-            * Number // 数字
-                * IEEE 754 Double Float
-                    * Sign (1) 符号位
-                    * Exponent (11) 指数位
-                    * Fraction (52) 有效数位
-                * Number-Grammar // 语法
-                    * 整数写法 0 | 0. | .0 | 1e3(指数，e E都可以)
-                        * 二进制 0b开头
-                        * 八进制 0o
-                        * 十进制 
-                        * 十六进制 0x
-                * Number-Practice 最佳实践
-                    * Safe Integer 安全整数Number.MAX_SAFE_INTEGER
-                    * Float Compare 浮点精度，浮点比对数Number.EPSILON，Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
-            * String // 字符串
-                * Character // 字符
-                * Code Point // 码点
-                * Encoding // 字符集
-                    * ASCII // 0-128
-                    * Unicode // 万国码，js里只认Unicode
-                        * UTF-8
-                        * UTF-16
-                        * UTF-32
-                    * UCS // Unicode的子集，U+0000 - U+FFFF
-                    * GB // 国标，只收录ASCII和大部分中文
-                        * GB2312
-                        * GBK(GB13000)
-                        * GB18030
-                    * ISO-8859 // 欧洲国家的大部分字符
-                    * BIG5 // 台湾的繁体中文字符
-                * String-Grammar // 语法
-                    * "abc" // 双引号
-                        * 任何非双引号与反斜杠
-                        * " ' \ b f n r t v ,这几个字符以外的字符跟在\后面就是表示自身。这几个字符跟在\后面是有特定意义的。![转义相关符号](file:///Users/apple/kael/frontend/winter-course/week02/encoding.png)
-                    * 'abc' // 单引号
-                    * `abc` // 模板
-                        * `和${ 是一部分，}和${ 是一部分， }和` 是一部分
-            * Boolean // 布尔
-                * true
-                * false
-            * Null
-            * Undefined
-            * Object
-            * Symbol
-            * 正则表达式直接量
-                * /a/ 能算除号的地方就是除号，其它的算正则
-        * undefined是一个无法修改的全局变量名，但是它能在其它作用域使用和赋值。它是一个运行时的东西。
-        * null更特殊，无法定义与声明，就如一个直接量一样。
-        
+
+- WhiteSpace 空白符
+  - <TAB> // tab 键产生的空白，制表符 '\t'
+  - <VT> // 纵向制表符 '\v'
+  - <FF> // 换页符 formfeed
+  - <SP> // 普通空格
+  - <NBSP> // 不换行空格 no-break space
+  - <ZWNBSP> // zero width no-break space 零宽不换行空格
+    - BOM // 通过在文件开头加入一个 ZWNBSP,然后通过看收到的是 FE FF 或 FF FE 来判断是什么格式
+  - <USP> // Unicode 里的空白
+- LineTerminator 换行符
+  - <LF> // line feed 换行 '\n'
+  - <CR> // carriage return 回车 '\r'
+  - <LS> // line separator 分行符，超出 Ascii 编码
+  - <PS> // paragraph separator 分段符，超出 Ascii 编码
+- Comment 注释
+  - 注释里不能用\u 转义*，/*\u002a/这样是识别不出\u002a 为\*的。注释就是分为单行和多行，完。
+- Token 有效字符
+  - IdentifierName // 标识符与关键字，必须以 UnicodeIDStart 字符（英文大小写、中文等）、_、\$开头。其它位置以 UnicodeIDContinue、_、\$、<ZWNJ>零宽非连接符、<ZWJ>零宽连接符。最佳实践是都只使用 Ascii 范围内。
+    - Keywords // 关键字 let var class 等
+    - Identifier // 标识符
+      - 变量名 不能跟关键字重名，有一个特殊的 get ,get 能当做变量名，然而在属性里却又能成为关键字
+      - 属性名 可以跟关键字重名，如 a.this = 2
+    - Future reserved Keywords // 保留字符，将来会用的
+  - Punctuator // 符号 - + = （ ）等
+  - Literal // 直接量, true false null 1 2 3 等
+    - Number // 数字
+      - IEEE 754 Double Float
+        - Sign (1) 符号位
+        - Exponent (11) 指数位
+        - Fraction (52) 有效数位
+      - Number-Grammar // 语法
+        - 整数写法 0 | 0. | .0 | 1e3(指数，e E 都可以)
+          - 二进制 0b 开头
+          - 八进制 0o
+          - 十进制
+          - 十六进制 0x
+      - Number-Practice 最佳实践
+        - Safe Integer 安全整数 Number.MAX_SAFE_INTEGER
+        - Float Compare 浮点精度，浮点比对数 Number.EPSILON，Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
+    - String // 字符串
+      - Character // 字符
+      - Code Point // 码点
+      - Encoding // 字符集
+        - ASCII // 0-128
+        - Unicode // 万国码，js 里只认 Unicode
+          - UTF-8
+          - UTF-16
+          - UTF-32
+        - UCS // Unicode 的子集，U+0000 - U+FFFF
+        - GB // 国标，只收录 ASCII 和大部分中文
+          - GB2312
+          - GBK(GB13000)
+          - GB18030
+        - ISO-8859 // 欧洲国家的大部分字符
+        - BIG5 // 台湾的繁体中文字符
+      - String-Grammar // 语法
+        - "abc" // 双引号
+          - 任何非双引号与反斜杠
+          - " ' \ b f n r t v ,这几个字符以外的字符跟在\后面就是表示自身。这几个字符跟在\后面是有特定意义的。![转义相关符号](file:///Users/apple/kael/frontend/winter-course/week02/encoding.png)
+        - 'abc' // 单引号
+        - `abc` // 模板
+          - `和${ 是一部分，}和${ 是一部分， }和` 是一部分
+    - Boolean // 布尔
+      - true
+      - false
+    - Null
+    - Undefined
+    - Object
+    - Symbol
+    - 正则表达式直接量
+      - /a/ 能算除号的地方就是除号，其它的算正则
+  - undefined 是一个无法修改的全局变量名，但是它能在其它作用域使用和赋值。它是一个运行时的东西。
+  - null 更特殊，无法定义与声明，就如一个直接量一样。

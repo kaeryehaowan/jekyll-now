@@ -1,9 +1,13 @@
 ### 文档、标准
-* 完善脑图
+
+- 完善脑图
+
 ### 前端技术知识体系
-* 作业：完善实体（Entity）
-* 作业：你能不能在 ECMA 中找到所有的类型（Type）
-* w3c标准状态
+
+- 作业：完善实体（Entity）
+- 作业：你能不能在 ECMA 中找到所有的类型（Type）
+- w3c 标准状态
+
 ```
     Candidate Recommerndation - 候选
     Group Note
@@ -13,4 +17,5 @@
     Retired - 退休标准
     Working Draft - 有这个东西，没有效力
 ```
-* [web平台api](webplatform.github.io/docs/apis/)
+
+- [web 平台 api](webplatform.github.io/docs/apis/)
